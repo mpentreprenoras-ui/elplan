@@ -149,7 +149,7 @@ button{cursor:pointer}
 
 <header class="top">
   <div>
-    <div class="brand">MP Renovering · <span data-i="elplan">Elplan</span></div>
+    <div class="brand">MP Entreprenør AS · <span data-i="elplan">Elplan</span></div>
     <h1>Thereses gate 18</h1>
     <div class="sub">0452 Oslo · <span data-i="scale">Plantegning fra FINN, mål i cm</span></div>
   </div>
@@ -1002,7 +1002,7 @@ async function makePdf(kind,msgEl,ver){
   // header
   doc.setFont('helvetica','bold');doc.setFontSize(15);doc.text(safe('Thereses gate 18 – '+title),12,14);
   doc.setFont('helvetica','normal');doc.setFontSize(9);doc.setTextColor(90);
-  doc.text(safe(`MP Renovering · Thereses gate 18, 0452 Oslo · ${lg==='no'?'Versjon':'Version'} ${vNum||'-'} · ${dateStr} · ${lg==='no'?'Status':'Status'}: ${locked()?(lg==='no'?'låst':'locked'):(lg==='no'?'åpen':'open')}`),12,19.5);
+  doc.text(safe(`MP Entreprenør AS · Thereses gate 18, 0452 Oslo · ${lg==='no'?'Versjon':'Version'} ${vNum||'-'} · ${dateStr} · ${lg==='no'?'Status':'Status'}: ${locked()?(lg==='no'?'låst':'locked'):(lg==='no'?'åpen':'open')}`),12,19.5);
   doc.setTextColor(0);
   let iw=273,ih=iw*H/W;if(ih>150){ih=150;iw=ih*W/H}doc.addImage(png,'PNG',12,24,iw,ih);
   // legend
@@ -1066,7 +1066,7 @@ async function makePdf(kind,msgEl,ver){
     doc.text(safe(w.join(' · ').replace('nowych punktów','nye punkter').replace('nowy obwód do komfyru','ny kurs til komfyr').replace('ogrzewanie podłogowe','gulvvarme')),left,y);y+=5}}
   if(kind!=='mp'){y+=4;if(y>262){doc.addPage('a4','portrait');y=16}doc.setFont('helvetica','bold');doc.text(safe(L[lg].infoTitle),left,y);y+=5;doc.setFont('helvetica','normal');
     [L[lg].infoSite,L[lg].kitchenInfo,L[lg].badInfo,L[lg].infoCable,L[lg].infoTl,L[lg].infoBad].forEach(s=>{const ls=doc.splitTextToSize(safe(s),186);doc.text(ls,left,y);y+=ls.length*4.2+1.5})}
-  if(kind==='client'){y+=4;doc.setTextColor(90);doc.text(safe(lg==='no'?'Pris sendes fra MP Renovering på bakgrunn av denne planen.':'MP Renovering will send a price based on this plan.'),left,y);doc.setTextColor(0)}
+  if(kind==='client'){y+=4;doc.setTextColor(90);doc.text(safe(lg==='no'?'Pris sendes fra MP Entreprenør AS på bakgrunn av denne planen.':'MP Entreprenør AS will send a price based on this plan.'),left,y);doc.setTextColor(0)}
   const blob=doc.output('blob');
   const fname=`Elplan_Thereses_gate_18_${kind==='mp'?'MP_kalkyle':kind==='el'?'elektriker':(lg==='no'?'kunde':'client')}${vNum?'_v'+vNum:''}.pdf`;
   if(!downloads){try{const u=URL.createObjectURL(blob);const a=document.createElement('a');a.href=u;a.download=fname;document.body.appendChild(a);a.click();setTimeout(()=>{URL.revokeObjectURL(u);a.remove()},4000);return true}catch(e){say('PDF error','err');return false}}
